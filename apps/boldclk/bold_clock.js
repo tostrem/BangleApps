@@ -121,9 +121,7 @@ function startTimers(){
 
 function draw_digital() {
   let date = new Date();
-  date.toISOString().substr(11, 8);
-  //g.drawString(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds(),10,g.getHeight()-10, true);
-  g.drawString(date.toISOString().substr(11, 8),10,g.getHeight()-10, true);
+  g.drawString(date.toString().substr(16, 8),10,g.getHeight()-10, true);
   g.flip();
 }
 
