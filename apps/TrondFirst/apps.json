@@ -1,6 +1,6 @@
 // Create an entry in apps.json as follows:
 { "id": "TrondFirst",
-  "name": "My app's human readable name",
+  "name": "Trond First Bangle App",
   "shortName":"Trond First Bangle app",
   "icon": "app.png",
   "version":"0.01",
