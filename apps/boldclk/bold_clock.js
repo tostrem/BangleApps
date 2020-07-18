@@ -11,6 +11,7 @@ var minute_hand = {
 
 //g.fillRect(0,24,239,239); // Apps area
 let intervalRef = null;
+let digitalRef = null;
 const p180 = Math.PI/180;
 const clock_center = {x:Math.floor((240-1)/2), y:24+Math.floor((239-24)/2)};
 // ={ x: 119, y: 131 }
@@ -109,12 +110,16 @@ function clearTimers(){
     intervalRef = null;
     //console.log("interval is cleared");
   }
+  if(digitalRef) {
+    clearInterval(digitalRef);
+    digitalRef = null;
+  }
 }
 function startTimers(){
   //console.log("startTimers");
-  if(intervalRef) clearTimers();
+  if(intervalRef || digitalRef) clearTimers();
   intervalRef = setInterval(draw_clock, 60*1000);
-  setInterval(draw_digital,1000);
+  digitalRef = setInterval(draw_digital,1000);
   //console.log("interval is set");
   draw_clock();
 }
