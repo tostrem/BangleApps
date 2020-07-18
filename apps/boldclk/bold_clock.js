@@ -150,7 +150,7 @@ Bangle.on('faceUp',function(up){
 });
 Bangle.on('accel', function(acc) {
   // acc = {x,y,z,diff,mag}
-  g.drawString("x="+acc.x+"y="+acc.y+"z="+acc.z,50,g.getHeight()-80, true);
+  g.drawString("x="+acc.x.toString().substr(0,3)+"y="+acc.y.toString().substr(0,3)+"z="+acc.z.toString().substr(0,3),50,g.getHeight()-80, true);
   g.flip();
 });
 
