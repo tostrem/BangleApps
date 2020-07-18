@@ -1,6 +1,7 @@
 // place your const, vars, functions or classes here
 
 // special function to handle display switch on
+/*
 Bangle.on('lcdPower', (on) => {
   if (on) {
     // call your app function here
@@ -8,8 +9,8 @@ Bangle.on('lcdPower', (on) => {
     
   }
 });
-
-g.clear();
+*/
+//g.clear();
 // call your app function here
 
 var counter = 30;
