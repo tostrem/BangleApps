@@ -114,8 +114,17 @@ function startTimers(){
   //console.log("startTimers");
   if(intervalRef) clearTimers();
   intervalRef = setInterval(draw_clock, 60*1000);
+  setInterval(draw_digital,1000);
   //console.log("interval is set");
   draw_clock();
+}
+
+function draw_digital() {
+  let date = new Date();
+  date.toISOString().substr(11, 8);
+  //g.drawString(date.getHours()+":"+date.getMinutes()+":"+date.getSeconds(),10,g.getHeight()-10, true);
+  g.drawString(date.toISOString().substr(11, 8),10,g.getHeight()-10, true);
+  g.flip();
 }
 
 Bangle.on('lcdPower', (on) => {
