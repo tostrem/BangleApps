@@ -12,7 +12,7 @@ var minute_hand = {
 //g.fillRect(0,24,239,239); // Apps area
 let intervalRef = null;
 let digitalRef = null;
-let enableSeconds = null;
+let enableSeconds = true;
 const p180 = Math.PI/180;
 const clock_center = {x:Math.floor((240-1)/2), y:24+Math.floor((239-24)/2)};
 // ={ x: 119, y: 131 }
@@ -138,6 +138,7 @@ function draw_digital() {
   g.drawString(date.toString().substr(16, 8),10,g.getHeight()-10, true);
   g.flip();
   if(!enableSeconds) {
+    g.drawString("        ",10,g.getHeight()-10, true);
     if(digitalRef) {
       clearInterval(digitalRef);
       digitalRef = null;
@@ -171,12 +172,10 @@ Bangle.on('accel', function(acc) {
 });
 */
 
-Bangle.on(BTN3, )
-
 g.clear();
 Bangle.loadWidgets();
 Bangle.drawWidgets();
 startTimers();
 // Show launcher when middle button pressed
 setWatch(Bangle.showLauncher, BTN2, {repeat:false,edge:"falling"});
-setWatch(function() {enableSeconds = !enableSeconds},BTN3,true);
+setWatch(function() {enableSeconds = !enableSeconds; if(enableSeconds) { startTimers(); } },BTN3,true);
