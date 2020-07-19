@@ -169,7 +169,8 @@ Bangle.on('accel', function(acc) {
   // acc = {x,y,z,diff,mag}
   if(enableSeconds) {
   g.setColor(0,0,0);
-  g.drawCircle(100,100,(acc.z*20)+20);
+  g.fillCircle(100,100,50);
+
   g.drawLine(clock_center.x, clock_center.y,clock_center.x-50,clock_center.y);
   g.drawLine(clock_center.x, clock_center.y,clock_center.x+50,clock_center.y);
   g.drawLine(clock_center.x, clock_center.y,clock_center.x,(clock_center.y-50));
