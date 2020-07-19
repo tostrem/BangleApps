@@ -12,6 +12,7 @@ var minute_hand = {
 //g.fillRect(0,24,239,239); // Apps area
 let intervalRef = null;
 let digitalRef = null;
+let enableSeconds = null;
 const p180 = Math.PI/180;
 const clock_center = {x:Math.floor((240-1)/2), y:24+Math.floor((239-24)/2)};
 // ={ x: 119, y: 131 }
@@ -119,7 +120,14 @@ function startTimers(){
   //console.log("startTimers");
   if(intervalRef) clearTimers();
   intervalRef = setInterval(draw_clock, 60*1000);
+  if(enableSeconds) {
   digitalRef = setInterval(draw_digital,1000);
+  } else {
+    if(digitalRef) {
+      clearInterval(digitalRef);
+      digitalRef = null;
+    }
+  }
   //console.log("interval is set");
   draw_clock();
   draw_digital();
@@ -129,9 +137,11 @@ function draw_digital() {
   let date = new Date();
   g.drawString(date.toString().substr(16, 8),10,g.getHeight()-10, true);
   g.flip();
-  if(date.getSeconds() == 30) {
-    clearTimers();
-    Bangle.setLCDPower(false);
+  if(!enableSeconds) {
+    if(digitalRef) {
+      clearInterval(digitalRef);
+      digitalRef = null;
+    }
   }
 }
 
@@ -161,9 +171,12 @@ Bangle.on('accel', function(acc) {
 });
 */
 
+Bangle.on(BTN3, )
+
 g.clear();
 Bangle.loadWidgets();
 Bangle.drawWidgets();
 startTimers();
 // Show launcher when middle button pressed
 setWatch(Bangle.showLauncher, BTN2, {repeat:false,edge:"falling"});
+setWatch(function() {enableSeconds = !enableSeconds},BTN3,true);
