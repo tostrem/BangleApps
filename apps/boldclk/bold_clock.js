@@ -164,13 +164,15 @@ Bangle.on('faceUp',function(up){
     Bangle.setLCDPower(true);
   }
 });
-/*
+
 Bangle.on('accel', function(acc) {
   // acc = {x,y,z,diff,mag}
+  g.drawLine(g.getWidth()/2,g.getHeight()/2,g.getWidth()/2,(g.getHeight()/2-(acc.x*50));
+
   g.drawString("x="+acc.x.toFixed(1)+"y="+acc.y.toFixed(1)+"z="+acc.z.toFixed(1),50,g.getHeight()-80, true);
   g.flip();
 });
-*/
+
 
 g.clear();
 Bangle.loadWidgets();
