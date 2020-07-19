@@ -129,6 +129,10 @@ function draw_digital() {
   let date = new Date();
   g.drawString(date.toString().substr(16, 8),10,g.getHeight()-10, true);
   g.flip();
+  if(date.getSeconds() == 30) {
+    clearTimers();
+    Bangle.setLCDPower(false);
+  }
 }
 
 Bangle.on('lcdPower', (on) => {
