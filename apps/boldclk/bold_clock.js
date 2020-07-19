@@ -117,7 +117,7 @@ function clearTimers(){
 }
 function startTimers(){
   //console.log("startTimers");
-  if(intervalRef && digitalRef == 60) clearTimers();
+  if(intervalRef) clearTimers();
   intervalRef = setInterval(draw_clock, 60*1000);
   digitalRef = setInterval(draw_digital,1000);
   //console.log("interval is set");
@@ -127,7 +127,7 @@ function startTimers(){
 
 function draw_digital() {
   let date = new Date();
-  g.drawString(date.toString().substr(16, 8)+" "+digitalRef,10,g.getHeight()-10, true);
+  g.drawString(date.toString().substr(16, 8),10,g.getHeight()-10, true);
   g.flip();
 }
 
