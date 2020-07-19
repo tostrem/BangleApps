@@ -167,8 +167,12 @@ Bangle.on('faceUp',function(up){
 
 Bangle.on('accel', function(acc) {
   // acc = {x,y,z,diff,mag}
-  g.clear();
-  g.drawWidgets();
+  g.setColor(0,0,0);
+  g.drawLine(clock_center.x, clock_center.y,clock_center.x-50),clock_center.y);
+  g.drawLine(clock_center.x, clock_center.y,clock_center.x+50),clock_center.y);
+  g.drawLine(clock_center.x, clock_center.y,clock_center.x,(clock_center.y-50));
+  g.drawLine(clock_center.x, clock_center.y,clock_center.x,(clock_center.y+50));
+  g.setColor(1,1,1,);
   g.drawLine(clock_center.x, clock_center.y,(clock_center.x-(acc.x*50)),clock_center.y);
   g.drawLine(clock_center.x, clock_center.y,clock_center.x,(clock_center.y-(acc.y*50)));
 
