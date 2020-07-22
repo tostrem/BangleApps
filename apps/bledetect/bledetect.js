@@ -19,12 +19,18 @@ function showDeviceInfo(device){
     },
     "manufacturer": {
       value: device.manufacturer
+    },
+    "data": {
+      value: device.data
     }
   };
 
   deviceMenu[device.id] = () => {};
   deviceMenu["< Back"] =  () => showMainMenu();
-
+  deviceMenu["Connect"] = () => NRF.Connect(device.name).then(function(server) {
+    console.log("Connected ");
+    deviceMenu.data = server.getSecurityStatus();
+  });
   return E.showMenu(deviceMenu);
 }
 
