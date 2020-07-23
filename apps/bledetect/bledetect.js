@@ -27,7 +27,7 @@ function showDeviceInfo(device){
 
   deviceMenu[device.id] = () => {};
   deviceMenu["< Back"] =  () => showMainMenu();
-  deviceMenu["Connect"] = () => connectBB8(device.id);
+  deviceMenu["Connect"] = () => connectBB8(device.id.substring(0,17));
   deviceMenu["Disconnect"] = () => disconnectBB8();
   return E.showMenu(deviceMenu);
 }
