@@ -28,8 +28,12 @@ function showDeviceInfo(device){
   deviceMenu[device.id] = () => {};
   deviceMenu["< Back"] =  () => showMainMenu();
   deviceMenu["Connect"] = () => connectBB8(device.id);
-  deviceMenu["Disconnect"] = () => NRF.Disconnect();
+  deviceMenu["Disconnect"] = () => disconnectBB8();
   return E.showMenu(deviceMenu);
+}
+
+function disconnectBB8() {
+  NRF.Disconnect();
 }
 
 function connectBB8(device_address) {
