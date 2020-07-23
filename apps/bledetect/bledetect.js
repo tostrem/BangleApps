@@ -27,12 +27,68 @@ function showDeviceInfo(device){
 
   deviceMenu[device.id] = () => {};
   deviceMenu["< Back"] =  () => showMainMenu();
-  deviceMenu["Connect"] = () => NRF.Connect(device.id).then(function(server) {
-    console.log("Connected ");
-    deviceMenu.data = server.getSecurityStatus();
-  });
+  deviceMenu["Connect"] = () => connectBB8(device.id);
+  deviceMenu["Disconnect"] = () => NRF.Disconnect();
   return E.showMenu(deviceMenu);
 }
+
+function connectBB8(device_address) {
+  let device;
+  NRF.connect(device_address).then(function(d) {
+    device = d;
+    return d.getPrimaryService("22bb746f2ba075542d6f726568705327");
+  }).then(function(s) {
+    console.log("Service ",s);
+    return s.getCharacteristic("22bb746f2ba175542d6f726568705327");
+  }).then(function(c) {
+    let roll = 0x30;
+    let preamble = [0xFF,0xFF,device,roll,0x00];
+    let data = [0x88, 0x10,0x01];
+    let dlen = data.length+1;
+    let checksum = 0x00;
+    preamble.concat(dlen).concat(data);
+    //make checksum
+    checksum = checksum(preamble);
+    preamble.push(checksum);
+    return c.writeValue(preamble);
+  }).then(function(d) {
+    setTimeout(function() {device.disconnect(); },4000);
+  }).catch(function() {
+    console.log("Something's broken.");
+  });
+}
+
+var seq = this._incSeq(),
+opts = {
+  sop2: this.sop2Bitfield,
+  did: vDevice,
+  cid: cmdName,
+  seq: seq,
+  data: data,
+  emitPacketErrors: this.emitPacketErrors
+},
+self = this;
+
+function checksum(data) {
+  var isBuffer = Buffer.isBuffer(data),
+      value = 0x00;
+
+  for (var i = 0; i < data.length; i++) {
+    value += isBuffer ? data.readUInt8(i) : data[i];
+  }
+
+  return (value % 256) ^ 0xFF;
+}
+
+/*
+Adaptor.BLEService = "22bb746f2bb075542d6f726568705327";
+Adaptor.WakeCharacteristic = "22bb746f2bbf75542d6f726568705327";
+Adaptor.TXPowerCharacteristic = "22bb746f2bb275542d6f726568705327";
+Adaptor.AntiDosCharacteristic = "22bb746f2bbd75542d6f726568705327";
+Adaptor.RobotControlService = "22bb746f2ba075542d6f726568705327";
+Adaptor.CommandsCharacteristic = "22bb746f2ba175542d6f726568705327";
+Adaptor.ResponseCharacteristic = "22bb746f2ba675542d6f726568705327";
+*/
 
 function scan() {
   menu = {
