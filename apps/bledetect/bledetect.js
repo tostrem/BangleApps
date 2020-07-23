@@ -62,17 +62,6 @@ function connectBB8(device_address) {
   });
 }
 
-var seq = this._incSeq(),
-opts = {
-  sop2: this.sop2Bitfield,
-  did: vDevice,
-  cid: cmdName,
-  seq: seq,
-  data: data,
-  emitPacketErrors: this.emitPacketErrors
-},
-self = this;
-
 function checksum(data) {
   var isBuffer = Buffer.isBuffer(data),
       value = 0x00;
